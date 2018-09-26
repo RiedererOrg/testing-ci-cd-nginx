@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mrnginxtest
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mrnginxtest
+    spec:
+      containers:
+      - name: mrnginxtest
+        image: {{ image: nginx }}
+        ports:
+        - containerPort: 80
+        env:
+        - name: NODE_ENV
+          value: staging
+        - name: PORT
+          value: "80"
+        - name: TZ
+          value: UTC
+        resources:
+          limits:
+            cpu: 500m
+            memory: 2000Mi
+          requests:
+            cpu: 250m
+            memory: 500Mi
